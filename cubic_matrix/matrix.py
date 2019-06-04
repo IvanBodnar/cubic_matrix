@@ -15,5 +15,5 @@ class CubicMatrix:
         }
 
     @property
-    def matrix(self) -> Dict[Position]:
+    def matrix(self) -> Dict[Position, int]:
         return self._matrix

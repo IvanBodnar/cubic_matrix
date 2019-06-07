@@ -1,8 +1,9 @@
 from collections import namedtuple
-from enum import Enum
+
 from typing import Dict
 
 from .exceptions import InvalidAction
+from .actions import ValidActions
 
 
 Position = namedtuple('Position', ['x', 'y', 'z'])
@@ -10,9 +11,7 @@ UpdateAction = namedtuple('UpdateAction', ['position', 'value'])
 QueryAction = namedtuple('QueryAction', ['positions'])
 
 
-class Actions(Enum):
-    UPDATE = 'UPDATE'
-    QUERY = 'QUERY'
+
 
 
 class CubicMatrix:
@@ -31,9 +30,9 @@ class CubicMatrix:
     @staticmethod
     def _parse_command(command: str):
         action, *args = command.split()
-        if action == Actions.UPDATE:
+        if action == ValidActions.UPDATE:
             return UpdateAction(tuple(args[0:3]), args[-1])
-        elif action == Actions.QUERY:
+        elif action == ValidActions.QUERY:
             return QueryAction(args)
         else:
             raise InvalidAction('Action {} is not valid. Options are UPDATE and QUERY'.format(action))

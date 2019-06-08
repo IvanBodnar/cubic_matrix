@@ -1,7 +1,7 @@
 from typing import Dict
 
 from cubic_matrix.exceptions import InvalidAction
-from cubic_matrix.actions import ValidActions, UpdateAction, QueryAction, Position
+from cubic_matrix.actions import ValidActions, Action, UpdateAction, QueryAction, Position
 
 
 class CubicMatrix:
@@ -17,7 +17,7 @@ class CubicMatrix:
     def matrix(self) -> Dict[Position, int]:
         return self._matrix
 
-    def _parse_command(self, command: str):
+    def _parse_command(self, command: str) -> Action:
         action, *args = command.split()
         if action.strip() == ValidActions.UPDATE.name:
             return UpdateAction(args, self._matrix)
@@ -25,3 +25,7 @@ class CubicMatrix:
             return QueryAction(args, self._matrix)
         else:
             raise InvalidAction('Action {} is not valid. Options are UPDATE and QUERY'.format(action))
+
+    def execute(self, command: str):
+        action = self._parse_command(command)
+        action.execute()

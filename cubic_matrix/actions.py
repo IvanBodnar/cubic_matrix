@@ -34,7 +34,6 @@ class UpdateAction(Action):
 
     def execute(self):
         self._matrix[self._position] = self._update_value
-        print(self._matrix)
 
 
 class QueryAction(Action):

@@ -13,4 +13,3 @@ class TestCubicMatrix:
     def test_parse_command(self):
         cm = CubicMatrix(3, 3, 2)
         assert isinstance(cm._parse_command('UPDATE 1 1 1 1'), UpdateAction)
-

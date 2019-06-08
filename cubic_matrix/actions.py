@@ -35,3 +35,17 @@ class UpdateAction(Action):
     def execute(self):
         self._matrix[self._position] = self._update_value
         print(self._matrix)
+
+
+class QueryAction(Action):
+    def __init__(self, arguments: list, matrix: dict):
+        self._start_position, self._end_position = self._parse_arguments(arguments)
+        self._matrix = matrix
+
+    @staticmethod
+    def _parse_arguments(arguments: list) -> Tuple[Tuple[int], Tuple[int]]:
+        int_arguments = [int(value) for value in arguments]
+        return tuple(int_arguments[0:3]), tuple(int_arguments[3:])
+
+    def execute(self):
+        pass

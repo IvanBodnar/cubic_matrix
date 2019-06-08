@@ -17,12 +17,11 @@ class CubicMatrix:
     def matrix(self) -> Dict[Position, int]:
         return self._matrix
 
-    @staticmethod
-    def _parse_command(command: str):
+    def _parse_command(self, command: str):
         action, *args = command.split()
-        if action == ValidActions.UPDATE:
-            return UpdateAction(tuple(args[0:3]), args[-1])
-        elif action == ValidActions.QUERY:
-            return QueryAction(args)
+        if action.strip() == ValidActions.UPDATE.name:
+            return UpdateAction(args[0:3], self._matrix)
+        # elif action == ValidActions.QUERY:
+        #     return QueryAction(args)
         else:
             raise InvalidAction('Action {} is not valid. Options are UPDATE and QUERY'.format(action))

@@ -13,13 +13,9 @@ class ValidActions(Enum):
 
 
 class Action(ABC):
-    def __init__(self, arguments: list, matrix: dict):
-        self._position, self._update_value = self._parse_arguments(arguments)
-        self._matrix = matrix
-
     @staticmethod
     @abstractmethod
-    def _parse_arguments(arguments: list) -> Tuple[Tuple[int], int]:
+    def _parse_arguments(arguments: list) -> Tuple:
         pass
 
     @abstractmethod
@@ -28,6 +24,10 @@ class Action(ABC):
 
 
 class UpdateAction(Action):
+    def __init__(self, arguments: list, matrix: dict):
+        self._position, self._update_value = self._parse_arguments(arguments)
+        self._matrix = matrix
+
     @staticmethod
     def _parse_arguments(arguments: list) -> Tuple[Tuple[int], int]:
         return tuple(int(value)for value in arguments[0:3]), int(arguments[-1])

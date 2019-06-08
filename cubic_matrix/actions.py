@@ -45,7 +45,19 @@ class QueryAction(Action):
     @staticmethod
     def _parse_arguments(arguments: list) -> Tuple[Tuple[int], Tuple[int]]:
         int_arguments = [int(value) for value in arguments]
-        return tuple(int_arguments[0:3]), tuple(int_arguments[3:])
+        start_args = tuple(int_arguments[0:3])
+        end_args = tuple(int_arguments[3:])
+        return start_args, end_args
+
+    def _get_enumerated_items(self) -> Tuple:
+        return tuple(enumerate(self._matrix.items(), 1))
+
+    def _get_index(self, position: tuple) -> int:
+        enumerated_items = self._get_enumerated_items()
+        return [item[0] for item in enumerated_items if item[1][0] == position][0]
 
     def execute(self):
-        pass
+        enumerated_items = self._get_enumerated_items()
+        start = self._get_index(self._start_position)
+        end = self._get_index(self._end_position)
+        return sum(item[1][1] for item in enumerated_items if item[0] in range(start, end + 1))

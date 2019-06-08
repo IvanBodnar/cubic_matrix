@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Tuple
 from collections import namedtuple
@@ -11,11 +12,22 @@ class ValidActions(Enum):
     QUERY = 'QUERY'
 
 
-class UpdateAction:
+class Action(ABC):
     def __init__(self, arguments: list, matrix: dict):
         self._position, self._update_value = self._parse_arguments(arguments)
         self._matrix = matrix
 
+    @staticmethod
+    @abstractmethod
+    def _parse_arguments(arguments: list) -> Tuple[Tuple[int], int]:
+        pass
+
+    @abstractmethod
+    def execute(self):
+        pass
+
+
+class UpdateAction(Action):
     @staticmethod
     def _parse_arguments(arguments: list) -> Tuple[Tuple[int], int]:
         return tuple(int(value)for value in arguments[0:3]), int(arguments[-1])

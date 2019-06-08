@@ -1,17 +1,7 @@
-from collections import namedtuple
-
 from typing import Dict
 
-from .exceptions import InvalidAction
-from .actions import ValidActions
-
-
-Position = namedtuple('Position', ['x', 'y', 'z'])
-UpdateAction = namedtuple('UpdateAction', ['position', 'value'])
-QueryAction = namedtuple('QueryAction', ['positions'])
-
-
-
+from cubic_matrix.exceptions import InvalidAction
+from cubic_matrix.actions import ValidActions, UpdateAction, Position
 
 
 class CubicMatrix:

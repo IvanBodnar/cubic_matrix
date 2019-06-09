@@ -27,6 +27,13 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 `
 
+- Instalar la aplicación en modo editable
+
+`
+$ pip install -e .
+`
+
+
 #### Uso de la clase CubicMatrix
 La clase se instancia pasando como parámetros la cantidad de  
 columnas, cantidad de filas y cantidad de "páginas" (z index):

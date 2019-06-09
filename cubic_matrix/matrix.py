@@ -1,7 +1,9 @@
 from typing import Dict
 
-from cubic_matrix.exceptions import InvalidAction
+from cubic_matrix.exceptions import InvalidAction, NonIntegerArgument, CoordinateOutOfRange
 from cubic_matrix.actions import ValidActions, Action, UpdateAction, QueryAction, Position
+from cubic_matrix.validations import integers_validation, action_validation
+from cubic_matrix.messages import success_message, error_message
 
 
 class CubicMatrix:
@@ -19,13 +21,21 @@ class CubicMatrix:
 
     def _parse_command(self, command: str) -> Action:
         action, *args = command.split()
-        if action.strip() == ValidActions.UPDATE.name:
+        action_validation(action)
+        integers_validation(args)
+        if action.upper() == ValidActions.UPDATE.name:
             return UpdateAction(args, self._matrix)
-        elif action == ValidActions.QUERY.name:
+        elif action.upper() == ValidActions.QUERY.name:
             return QueryAction(args, self._matrix)
-        else:
-            raise InvalidAction('Action {} is not valid. Options are UPDATE and QUERY'.format(action))
 
     def execute(self, command: str):
-        action = self._parse_command(command)
-        action.execute()
+        try:
+            action = self._parse_command(command)
+            result = action.execute()
+            success_message(result)
+        except NonIntegerArgument as e:
+            error_message(str(e))
+        except InvalidAction as e:
+            error_message(str(e))
+        except CoordinateOutOfRange as e:
+            error_message(str(e))

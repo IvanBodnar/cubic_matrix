@@ -1,4 +1,9 @@
 
+"""
+Functions to format the messages required by the business.
+"""
+
+
 def success_message(result: str or int):
     print('SUCCESS {}'.format(result if result is not None else ''))
 

@@ -5,8 +5,8 @@ Functions to format the messages required by the business.
 
 
 def success_message(result: str or int):
-    print('SUCCESS {}'.format(result if result is not None else ''))
+    return 'SUCCESS {}'.format(str(result) if result is not None else '').strip()
 
 
 def error_message(detail: str):
-    print('ERROR {}'.format(detail or ''))
+    return 'ERROR {}'.format(detail or '')

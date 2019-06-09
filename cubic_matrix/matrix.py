@@ -46,10 +46,10 @@ class CubicMatrix:
         try:
             action = self._parse_command(command)
             result = action.execute()
-            success_message(result)
+            return success_message(result)
         except NonIntegerArgument as e:
-            error_message(str(e))
+            return error_message(str(e))
         except InvalidAction as e:
-            error_message(str(e))
+            return error_message(str(e))
         except CoordinateOutOfRange as e:
-            error_message(str(e))
+            return error_message(str(e))

@@ -19,4 +19,4 @@ def action_validation(action: str):
     Raises an exception otherwise.
     """
     if action.strip().upper() not in ('QUERY', 'UPDATE'):
-        raise InvalidAction('Action {} is not valid. Options are UPDATE and QUERY'.format(action))
+        raise InvalidAction('Action "{}" is not valid. Options are UPDATE and QUERY.'.format(action))

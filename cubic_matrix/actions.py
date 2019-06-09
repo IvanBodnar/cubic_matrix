@@ -3,6 +3,8 @@ from enum import Enum
 from typing import Tuple
 from collections import namedtuple
 
+from cubic_matrix.exceptions import CoordinateOutOfRange
+
 
 Position = namedtuple('Position', ['x', 'y', 'z'])
 
@@ -33,6 +35,8 @@ class UpdateAction(Action):
         return tuple(int(value)for value in arguments[0:3]), int(arguments[-1])
 
     def execute(self):
+        if self._position not in self._matrix:
+            raise CoordinateOutOfRange('Coordinates are out of matrix range.')
         self._matrix[self._position] = self._update_value
 
 
@@ -56,6 +60,8 @@ class QueryAction(Action):
         return [item[0] for item in enumerated_items if item[1][0] == position][0]
 
     def execute(self):
+        if self._start_position not in self._matrix or self._end_position not in self._matrix:
+            raise CoordinateOutOfRange('Coordinates are out of matrix range.')
         enumerated_items = self._get_enumerated_items()
         start = self._get_index(self._start_position)
         end = self._get_index(self._end_position)
